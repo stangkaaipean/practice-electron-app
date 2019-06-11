@@ -1,5 +1,9 @@
-const { app, BrowserWindow, Menu, MenuItem } = require('electron')
-require('electron-reload')(__dirname);
+const { app, BrowserWindow, Menu, MenuItem, ipcMain, ipcRenderer } = require('electron')
+require('electron-reload')(__dirname, {
+    // Note that the path to electron may vary according to the main file
+    electron: require(`${__dirname}/node_modules/electron`)
+});
+
 
 const createWindow = () => {
     let win2
@@ -12,7 +16,7 @@ const createWindow = () => {
         show: false
     })
 
-    win.loadFile('index.html')
+    win.loadFile(`./app/pages/index.html`)
 
     win.webContents.openDevTools()
 
@@ -28,14 +32,19 @@ const createWindow = () => {
         label: 'Open second window',
         click: function () {
             if (!win2) {
-               win2 = createSecondWindow(win)
-               win2.loadFile('second.html')
+                win2 = createSecondWindow(win)
+                win2.loadFile(`./app/pages/second.html`)
             }
+
+            ipcMain.on('main-window-message', (event, arg) => {
+                win2.webContents.send('message', arg)
+            })
+
         }
     })
 
     let menu = new Menu()
-    menu.append(menuItem) 
+    menu.append(menuItem)
 
     win.setMenu(menu)
 }
