@@ -1,12 +1,14 @@
-const { app, BrowserWindow, Menu, MenuItem, ipcMain, ipcRenderer } = require('electron')
-require('electron-reload')(__dirname, {
-    // Note that the path to electron may vary according to the main file
-    electron: require(`${__dirname}/node_modules/electron`)
-});
+import { app, BrowserWindow, Menu, MenuItem, ipcMain, ipcRenderer } from 'electron'
+import { dirname } from 'path';
+
+// require('electron-reload')(__dirname, {
+//     // Note that the path to electron may vary according to the main file
+//     electron: require(`${__dirname}/node_modules/electron`)
+// });
 
 
 const createWindow = () => {
-    let win2
+    let win2: any
     let win = new BrowserWindow({
         width: 800,
         height: 600,
@@ -16,7 +18,7 @@ const createWindow = () => {
         show: false
     })
 
-    win.loadFile(`./app/pages/index.html`)
+    win.loadFile(`${__dirname}/pages/index.html`)
 
     win.webContents.openDevTools()
 
@@ -33,7 +35,7 @@ const createWindow = () => {
         click: function () {
             if (!win2) {
                 win2 = createSecondWindow(win)
-                win2.loadFile(`./app/pages/second.html`)
+                win2.loadFile(`${__dirname}/pages/second.html`)
             }
 
             ipcMain.on('main-window-message', (event, arg) => {
@@ -42,6 +44,14 @@ const createWindow = () => {
 
         }
     })
+
+
+    app.on('activate', () => {
+        if (win === null) {
+            createWindow()
+        }
+    })
+
 
     let menu = new Menu()
     menu.append(menuItem)
@@ -65,11 +75,5 @@ app.on('ready', createWindow)
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit()
-    }
-})
-
-app.on('activate', () => {
-    if (win === null) {
-        createWindow()
     }
 })

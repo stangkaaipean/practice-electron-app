@@ -1,8 +1,8 @@
-const { ipcRenderer } = require('electron')
-const axios = require('axios')
+import { ipcRenderer } from 'electron'
+import axios from 'axios'
 
 document.getElementById('send').addEventListener("click", () => {
-    ipcRenderer.send('main-window-message', document.getElementById('input').value)
+    ipcRenderer.send('main-window-message', (<HTMLInputElement>document.getElementById('input')).value)
 })
 
 document.getElementById('get').onclick = () => {
