@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "server": "nodemon ./api/index.js",
-    "start": "cp -r app/pages/. dist/pages && electron ./dist/main.js",
+    "start": "cp -r app/pages/. dist/app/pages && electron ./dist/app/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

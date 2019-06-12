@@ -1,10 +1,9 @@
-const express = require('express')
+import  express = require('express')
 const app = express()
-const bodyParser = require('body-parser')
-const config = require('./config/env.config')
-const dataRoutes = require('./data/routes')
-const db = require('./db/db')
-const mongoose = require('mongoose')
+import bodyParser = require('body-parser')
+import config from './config/env.config'
+import dataRoutes from './data/routes'
+import db from './db/db'
 
 db.connectDb()
    
@@ -20,7 +19,6 @@ app.use(function (req, res, next) {
         return next()
     }
 })
-
 
 app.use(bodyParser.json())
 app.get('/', (req, res) => {

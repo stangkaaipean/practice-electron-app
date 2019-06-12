@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const dataSchema = new Schema({
@@ -14,7 +14,7 @@ dataSchema.set('toJSON', {
 
 const data = mongoose.model('data', dataSchema)
 
-exports.list = () => {
+const list = () => {
     return new Promise((resolve, reject) => {
         data.find().exec((err, data) => {
             if(err) {
@@ -25,3 +25,5 @@ exports.list = () => {
         })
     }) 
 }
+
+export default { list }
