@@ -27,6 +27,6 @@ app.get('/', (req, res) => {
 
 dataRoutes.routes(app)
 
-app.listen(config.port, () => {
+app.listen(process.env.PORT || config.port, () => {
     console.log(`server up on port ${config.port}`)
 })
