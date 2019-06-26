@@ -1,1 +1,1 @@
-web: tsc && npm run server
+web: npm run server

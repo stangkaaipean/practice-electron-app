@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "server": "node ./dist/api/index.js",
+    "server": "tsc && node ./dist/api/index.js",
     "start": "cp -r app/pages/. dist/app/pages && electron ./dist/app/main.js",
     "test": "echo \"Error: no test specified\" && exit 0",
     "complie": "tsc"
